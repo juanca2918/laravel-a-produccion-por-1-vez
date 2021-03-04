@@ -8,19 +8,19 @@ Se asume desde ya que tu proyecto se encuentra listo para ser cargado, también 
 
 Esta guía se enfoca tanto en **cargar por primera vez como en actualizar un proyecto ya existente**, para estos casos, se implementará el comando ``` php artisan down ```, el cual se explicará más adelante.
 
-Es necesario tener habilitado **acceso a la Terminal** en tu hosting. En }cPanel puedes acceder en Avanzado -> Terminal.
+Es necesario tener habilitado **acceso a la Terminal** en tu hosting. En cPanel puedes acceder en Avanzado -> Terminal.
 
 #### No tengo acceso a la terminal ¿Qué hago? 📟️
 
-En muchos casos **la terminal web no está habilitada por defecto**, por lo que debes pedir a tu proveedor de servicio que te la habilite. Lo más sencillo es enviar un correo o abrir un nuevo Ticket de consulta.
+En muchos casos **la terminal web no está habilitada por defecto**, por lo que debes pedir a tu proveedor de servicio que la habilite. Lo más sencillo es enviar un correo o abrir un nuevo Ticket de consulta.
 
 Una vez habilitada se verá así (en cPanel):
 
 ![Terminal](https://mishorasweb.com/images/guia-prod/terminal.png)
 
-_⚠️ Importante: Esta guía aplica SOLO a proyectos listos para producción._
+_⚠️ **Importante:** Esta guía aplica SOLO a proyectos listos para producción._
 ```
-Ninguna de las optimizaciones realizadas aquí debe ser aplicada durante la etapa de desarrollo. SOLO durante el pasaje a producción.
+Ninguna de las optimizaciones realizadas aquí debe ser aplicada durante la etapa de desarrollo.
 ```
 
 ## Comenzando 🚀️
@@ -33,8 +33,8 @@ npm run production
 ```
 
 Se debe activar si trabajas con **Frameworks JS y/o CSS** tales como:
-* **JS** -> React, Vue, Angular, Alpine.Js, etc
-* **CSS** -> Bootstrap, Tailwind, etc.
+* **JS** - React, Vue, Angular, Alpine.Js, etc
+* **CSS** - Bootstrap, Tailwind, etc.
 
 _Para optimizar paquetes en laravel_
 ```
@@ -42,8 +42,9 @@ composer install --optimize-autoloader -no-dev
 ```
 Este comando de Composer permite optimizar toda la carga de clases y paquetes dentro de tu aplicación.
 
-⚠️ _Se debe ejecutar con cada deploy siempre y cuando se hayan modificado los paquetes o dependencias._
-
+```
+⚠️ Se debe ejecutar siempre y cuando se hayan modificado los paquetes o dependencias.
+```
 
 ## Comprimiendo el proyecto 📦️
 
@@ -60,7 +61,7 @@ Contiene la información relacionado a la gestión de GIT.
 ```
 Los archivos existentes dentro de la carpeta Logs se generaron durante el desarrollo, es importante borrarlos para que existan solo los nuevos generados en producción.
 ```
-En algunos sistemas es posible eliminar estas carpetas del comprimido sin necesidad de re-comprimir todo el paquete.
+📃️ Nota: En algunos sistemas es posible eliminar estas carpetas del comprimido sin necesidad de re-comprimir todo el paquete.
 
 #### Comprimiendo por primera vez 🥇️
 
@@ -68,7 +69,7 @@ _Siga estos pasos si es la primera vez que carga el proyecto en un servidor web.
 
 Comprima la carpeta raíz de su proyecto, incluyendo vendor y node_modules (contienen las dependencias php y js).
 
-El resultado final es un comprimido (.zip, .tar, etc) que contiene todas las carpetas y archivos: ``` app, database, vendor, artisan, webpack, etc. ```
+El resultado final es un comprimido (.zip, .tar, etc.) que contiene todas las carpetas y archivos: ``` app, database, vendor, artisan, webpack, etc. ```
 
 ⚠️ **Atención**: asegure que los archivos dot (.) se incluyan en el comprimido, por ejemplo ``` .htaccess en /public ``` o ``` .env en /raíz ```. En algunos casos estos no se incluyen al comprimir.
 
@@ -139,9 +140,11 @@ _Esta modo puede ser activado cuando el proyecto está cargado y descomprimido, 
 
 El **Modo Mantenimiento inhabilita el acceso de los usuarios a nuestra web** para que podamos trabajar los cambios necesarios sin que haya conflictos. Al activarse e intentar ingresar se mostrará el mensaje "503" diciendo que el servicio está en mantenimiento.
 
-**[¿Cómo modificar la pantalla de mantenimiento?](https://youtu.be/tFBfPKSBG4Y)** - Vídeo adjunto - _Simply UY_
+**[¿Cómo modificar la pantalla de mantenimiento?](https://youtu.be/tFBfPKSBG4Y)** - Ver vídeo - _Simply UY_
 
-⚠️ **Importante:** Activar el modo mantenimiento **es recomendable siempre que se quiera actualizar** la web.
+```
+⚠️ Importante: Activar el modo mantenimiento siempre que se quiera actualizar la web.
+```
 
 _**Para las cargas por primera vez no es necesario** ya que por lo general no se cuenta con usuarios que puedan recibir los posibles errores que surgen durante la carga._
 
@@ -150,7 +153,7 @@ _Accedemos a la terminal web e ingresamos en el directorio raíz de nuestro proy
 php artisan down
 ```
 
-_En este punto, probamos acceder a nuestra URL y comprobamos el mensaje 503._
+_En este punto, probamos acceder a nuestra URL y comprobamos el mensaje "503"._
 
 ## Gestionando los archivos 🗂️
 
@@ -191,7 +194,7 @@ sudo chmod -R ug+rwx /home/tu-usuario/tu-proyecto-laravel/storage /home/tu-usuar
 🛡️ _Ejecutados estos comandos la aplicación se encuentra **segura frente a escrituras y ejecuciones maliciosas.**_
 
 
-### Optimizar Laravel 🚀️
+## Optimizar Laravel 🚀️
 
 _Llegado a este punto nos enfocaremos en optimizar la carga y velocidad de nuestra página aplicando algunos comandos artisan que Laravel tiene para ofrecernos._
 
@@ -199,7 +202,7 @@ Es necesario limpiar el cache almacenado durante el desarrollo y reemplazarlo po
 
 #### Comandos ⌨️
 
-⚠️ _**Requiere el uso de la terminal web!**_ Aplicaremos estos comandos en la terminal web estando situados en la raíz de nuestro proyecto. Por ejemplo en ``` /home/tu-usuario/tu-proyecto-laravel/ ```.
+⚠️ **Requiere el uso de la terminal web!** Aplicaremos estos comandos en la terminal web estando situados en la raíz de nuestro proyecto. Por ejemplo en ``` /home/tu-usuario/tu-proyecto-laravel/ ```.
 
 🧐️ _Si no podemos utilizar los comandos quiere decir que estamos parados en la ruta incorrecta!_
 
@@ -225,7 +228,7 @@ En este punto **se habrá eliminado todo el cache generado durante el desarrollo
 
 ---
 
-#### Generaremos nuevo cache en el servidor 📔️
+### Generaremos nuevo cache en el servidor 📔️
 
 _Optimiza los archivos de configuración_
 ```
@@ -235,7 +238,7 @@ _Optimiza las carga de rutas_
 ```
 php artisan route:cache
 ```
-_Compila archivos blade una vez para no hacerlo en demanda_
+_Compila archivos blade para no hacerlo en demanda_
 ```
 php artisan view:cache
 ```
@@ -247,14 +250,15 @@ php artisan route:cache && php artisan config:cache && php artisan view:cache
 
 En este punto **se habrá generado nuevo cache con las directivas del servidor.**
 
-#### ¿Por qué realizar esto? 🤔️
+#### ¿Por qué limpiar cache? 🤔️
 
 Al desarrollar de manera local, las configuraciones y datos se almacenan con rutas similares a  ``` /var/www/html/tu-proyecto-laravel/ ```, si no eliminamos el cache, el servidor buscará trabajar con esa ruta y esto generará errores.
 
-**Los comandos anteriores deben ser ejecutados SI O SI** ✔️
+```
+Los comandos anteriores deben ser ejecutados SI o SI ✔️
+```
 
-
-#### Re-ubicando public 📌️
+## Re-ubicando public 📌️
 
 Como buena practica separaremos el proyecto en dos secciones, la carpeta "public" y el resto. Hacemos esto ya que **no es necesario tener todo el contenido del programa en la carpeta public_html** de nuestro hosting, con solo algunos archivos allí Laravel hará funcionar la aplicación.
 
@@ -264,9 +268,11 @@ Moveremos el contenido la carpeta "public" ``` /home/tu-usuario/tu-proyecto-lara
 
 _Las carpetas y archivos varían según cada proyecto pero la estructura es similar._
 
-📃️ Nota: Queda a criterio de cada uno si eliminar o no la carpeta public (que ahora está vacía porque le sacamos el contenido), su ruta es ``` /home/tu-usuario/tu-proyecto-laravel/public ```.
+```
+📃️ Nota: Queda a criterio de cada uno si eliminar o no la carpeta public (que ahora está vacía porque le sacamos el contenido).
+```
 
-#### Actualizar contenido de public_html 🌐️
+### Actualizar contenido de public_html 🌐️
 
 *En caso de querer actualizar un public_html ya existente no es necesario eliminar todo.*
 
@@ -276,7 +282,7 @@ También es común que se modifique **app.css** ubicado en ``` /jscss/app.css ``
 
 *Para trabajar correctamente public_html debemos **reemplazar solo los archivos que se hayan modificado** durante el desarrollo, los podemos cargar individualmente o en comprimido.*
 
-#### Modificando index.php ⚙️
+### Modificando index.php ⚙️
 
 _Este archivo se encarga de hacer funcionar nuestra aplicación, si lo examinamos vemos que invoca archivos de dos carpetas, entre otras varias cosas. Las archivos son ``` /vendor/autoload.php ``` y ``` /bootstrap/app.php ```._
 
@@ -300,13 +306,13 @@ _La nueva primera inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/vendor/autolo
 
 _La nueva segunda inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/bootstrap/app.php ```
 
-⚠️ _Importante: Recuerda evitar modificar el archivo index.php cuando cargues nuevas versiones. De ser así, cambialo de inmediato._
+```
+⚠️ Importante: Evitar modificar el archivo index.php cuando cargues nuevas versiones. De ser así, actualizalo de inmediato.
+```
 
 **De esta forma, nuestro proyecto ya puede cargar todo lo necesario!** 🏆️
 
----
-
-### Cada vez falta menos 🏁️
+## Cada vez falta menos 🏁️
 
 _Es aquí donde te recomiendo repasar lo anterior y asegurarte que todo esté en orden_ 🤓️
 
