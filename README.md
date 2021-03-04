@@ -18,7 +18,7 @@ Una vez habilitada se verá así (en cPanel):
 
 ![Terminal](https://mishorasweb.com/images/guia-prod/terminal.png)
 
-_⚠️ **Importante:** Esta guía aplica SOLO a proyectos listos para producción._
+❗️ **Importante:** Esta guía aplica SOLO a proyectos listos para producción.
 ```
 Ninguna de las optimizaciones realizadas aquí debe ser aplicada durante la etapa de desarrollo.
 ```
@@ -43,7 +43,7 @@ composer install --optimize-autoloader -no-dev
 Este comando de Composer permite optimizar toda la carga de clases y paquetes dentro de tu aplicación.
 
 ```
-⚠️ Se debe ejecutar siempre y cuando se hayan modificado los paquetes o dependencias.
+❗️ Se debe ejecutar siempre y cuando se hayan modificado los paquetes o dependencias ❗️
 ```
 
 ## Comprimiendo el proyecto 📦️
@@ -71,7 +71,7 @@ Comprima la carpeta raíz de su proyecto, incluyendo vendor y node_modules (cont
 
 El resultado final es un comprimido (.zip, .tar, etc.) que contiene todas las carpetas y archivos: ``` app, database, vendor, artisan, webpack, etc. ```
 
-⚠️ **Atención**: asegure que los archivos dot (.) se incluyan en el comprimido, por ejemplo ``` .htaccess en /public ``` o ``` .env en /raíz ```. En algunos casos estos no se incluyen al comprimir.
+❗️ **Atención**: asegure que los archivos dot (.) se incluyan en el comprimido, por ejemplo ``` .htaccess en /public ``` o ``` .env en /raíz ```. En algunos casos estos no se incluyen al comprimir.
 
 #### Comprimiendo para una actualización 📣️
 
@@ -102,7 +102,7 @@ npm update
 
 💡️ Pensemos lo siguiente:
 
-vendor(+30mb) + node_modules(+100mb) + tu app = peso aproximado superior a 100 mb.
+vendor (+30mb) + node_modules (+100mb) + tu app = **peso aproximado superior a 100 mb**.
 
 ¿Cargarías +100mb por cada actualización? O ¿Cargarías solo tus modificaciones?
 
@@ -112,7 +112,7 @@ Actualizar las dependencias requiere cargar vendor y/o node_modules de nuevo.
 
 Actualizar las dependencias puede llevar a problemas de compatibilidad, se recomienda testear antes de pasar a producción. Al ser archivos pesados requieren más ancho de banda para cargarse y más espacio de almacenamiento.
 
-_En caso de actualizar dependencias, incluya vendor y/o node_modules en el comprimido._
+❗️ _En caso de actualizar dependencias, incluya vendor y/o node_modules en el comprimido._
 
 
 ## Cargando los archivos 🗃️
@@ -143,7 +143,7 @@ El **Modo Mantenimiento inhabilita el acceso de los usuarios a nuestra web** par
 **[¿Cómo modificar la pantalla de mantenimiento?](https://youtu.be/tFBfPKSBG4Y)** - Ver vídeo - _Simply UY_
 
 ```
-⚠️ Importante: Activar el modo mantenimiento siempre que se quiera actualizar la web.
+❗️ Importante: Activar el modo mantenimiento siempre que se quiera actualizar la web.
 ```
 
 _**Para las cargas por primera vez no es necesario** ya que por lo general no se cuenta con usuarios que puedan recibir los posibles errores que surgen durante la carga._
@@ -167,7 +167,7 @@ _Es común que desarrollemos nuestro proyecto como administradores (en windows) 
 
 ---
 
-⚠️ _**Terminal requerida!** Los siguientes comandos se pueden ejecutar en la terminal web para más comodidad, de lo contrario se deben aplicar de manera local antes de generar el comprimido._
+❗️ _**Terminal requerida!** Los siguientes comandos se pueden ejecutar en la terminal web para más comodidad, de lo contrario se deben aplicar de manera local antes de generar el comprimido._
 
 ---
 
@@ -200,9 +200,9 @@ _Llegado a este punto nos enfocaremos en optimizar la carga y velocidad de nuest
 
 Es necesario limpiar el cache almacenado durante el desarrollo y reemplazarlo por nuevo estando ya en el servidor, esto agiliza los tiempos de carga y procesamiento, además de evitar errores.
 
-#### Comandos ⌨️
+### Comandos ⌨️
 
-⚠️ **Requiere el uso de la terminal web!** Aplicaremos estos comandos en la terminal web estando situados en la raíz de nuestro proyecto. Por ejemplo en ``` /home/tu-usuario/tu-proyecto-laravel/ ```.
+❗️ **Requiere el uso de la terminal web!** Aplicaremos estos comandos en la terminal web estando situados en la raíz de nuestro proyecto. Por ejemplo en ``` /home/tu-usuario/tu-proyecto-laravel/ ```.
 
 🧐️ _Si no podemos utilizar los comandos quiere decir que estamos parados en la ruta incorrecta!_
 
@@ -307,7 +307,7 @@ _La nueva primera inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/vendor/autolo
 _La nueva segunda inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/bootstrap/app.php ```
 
 ```
-⚠️ Importante: Evitar modificar el archivo index.php cuando cargues nuevas versiones. De ser así, actualizalo de inmediato.
+❗️ Importante: Evitar modificar el archivo index.php cuando cargues nuevas versiones. De ser así, actualizalo de inmediato.
 ```
 
 **De esta forma, nuestro proyecto ya puede cargar todo lo necesario!** 🏆️
@@ -318,9 +318,9 @@ _Es aquí donde te recomiendo repasar lo anterior y asegurarte que todo esté en
 
 _Aprovecho a comentar que puedes **encontrarme en Youtube**, soy [Simply UY](https://www.youtube.com/channel/UChhbijYNjlgiVuqPEIMXuzQ) y subo vídeos sobre programación en Laravel y Vue.js entre tantas cosas más._
 
-#### 🛸️ Continuamos...
+**🛸️ Continuamos...**
 
----
+## Ajustando variables de entorno 🔧️
 
 
 
