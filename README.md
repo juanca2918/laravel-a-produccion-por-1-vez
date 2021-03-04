@@ -2,13 +2,13 @@
 
 _Con esta guía aprenderás a hacer Deploy de tu proyecto Laravel en un hosting compartido, ya sea por primera vez o para actualizar._
 
-## Pre-requisitos 📋️
+## Requisitos 📋️
 
 Se asume desde ya que tu proyecto se encuentra listo para ser cargado, también que tienes instalado y conoces los manejadores [Composer](https://getcomposer.org/) y [NPM](https://www.npmjs.com/get-npm).
 
-Esta guía se enfoca tanto en **cargar por primera vez como en actualizar un proyecto ya exisitente**, para estos casos, se implementará el comando ``` php artisan down ```, el cual se explicará más adelante.
+Esta guía se enfoca tanto en **cargar por primera vez como en actualizar un proyecto ya existente**, para estos casos, se implementará el comando ``` php artisan down ```, el cual se explicará más adelante.
 
-Es necesario tener habilitado **acceso a la Terminal** en tu hosting. En caso de cPanel puedes acceder en Avanzado -> Terminal.
+Es necesario tener habilitado **acceso a la Terminal** en tu hosting. En }cPanel puedes acceder en Avanzado -> Terminal.
 
 #### No tengo acceso a la terminal ¿Qué hago? 📟️
 
@@ -20,19 +20,19 @@ Una vez habilitada se verá así (en cPanel):
 
 _⚠️ Importante: Esta guía aplica SOLO a proyectos listos para producción._
 ```
-Ninguna de las optimizacionas realizadas aquí debe ser aplicada durante la etapa de desarrollo. SOLO durante el pasaje a producción.
+Ninguna de las optimizaciones realizadas aquí debe ser aplicada durante la etapa de desarrollo. SOLO durante el pasaje a producción.
 ```
 
 ## Comenzando 🚀️
 
-Una vez terminado el desarrollo de tu web/app debemos ingresar los siguientes comandos de manera local, abrimos una terminal en nuestro editar e ingresamos:
+Una vez terminado el desarrollo de tu web/app debemos ingresar los siguientes comandos en una terminal local dentro del proyecto:
 
 _Para optimizar JS y CSS_
 ```
 npm run production
 ```
 
-⬆️ Se debe activar si trabajas con **Frameworks JS y/o CSS** tales como:
+Se debe activar si trabajas con **Frameworks JS y/o CSS** tales como:
 * **JS** -> React, Vue, Angular, Alpine.Js, etc
 * **CSS** -> Bootstrap, Tailwind, etc.
 
@@ -40,16 +40,14 @@ _Para optimizar paquetes en laravel_
 ```
 composer install --optimize-autoloader -no-dev
 ```
-⬆️ Este comando de Composer permite optimizar toda la carga de clases y paquetes dentro de tu apicacción.
+Este comando de Composer permite optimizar toda la carga de clases y paquetes dentro de tu aplicación.
 
-⚠️ _Se debe ejecutar con cada deploy y cuando se hayan modificado los paquetes y dependencias._
+⚠️ _Se debe ejecutar con cada deploy siempre y cuando se hayan modificado los paquetes o dependencias._
 
 
 ## Comprimiendo el proyecto 📦️
 
-_Procedemos a crear el comprimido que contendrá todas los archivos del programa._
-
-_Veremos como cargar por primera vez o por actualización._
+_Procedemos a crear el comprimido que contendrá todas los archivos del programa. Veremos como cargar por primera vez o por actualización._
 
 **En ambos casos NO es necesario comprimir ni subir los siguientes archivos:**
 
@@ -72,11 +70,11 @@ Comprima la carpeta raíz de su proyecto, incluyendo vendor y node_modules (cont
 
 El resultado final es un comprimido (.zip, .tar, etc) que contiene todas las carpetas y archivos: ``` app, database, vendor, artisan, webpack, etc. ```
 
-⚠️ _**Atención**: asegure que los archivos dot (.) se incluyan en el comprimido, por ejemplo  **.htaccess** en /public o **.env** en /raíz. En algunos casos estos no se incluyen al comprimir._
+⚠️ **Atención**: asegure que los archivos dot (.) se incluyan en el comprimido, por ejemplo ``` .htaccess en /public ``` o ``` .env en /raíz ```. En algunos casos estos no se incluyen al comprimir.
 
 #### Comprimiendo para una actualización 📣️
 
-_Con actualización nos referimos a aplicar cualquier cambio sobre un proyecto ya exisitente en el servidor._
+_Con actualización nos referimos a aplicar cualquier cambio sobre un proyecto ya existente en el servidor._
 
 Es **importante** que se sepa si las siguientes carpetas fueron modificadas:
 
@@ -99,21 +97,21 @@ composer update
 npm update
 ```
 
-#### ¿Porque es importante saber si se actualizaron?
+#### ¿Por qué es importante saber si se actualizaron?
 
 💡️ Pensemos lo siguiente:
 
-vendor(+30mb) + node_modules(+100mb) + tu app tienen un peso aproximado superior a 100 mb.
+vendor(+30mb) + node_modules(+100mb) + tu app = peso aproximado superior a 100 mb.
 
-¿Cargarías +100mb por cada actualización? ¿o solo cargarías tus modificaciones?
+¿Cargarías +100mb por cada actualización? O ¿Cargarías solo tus modificaciones?
 
 ```
 Actualizar las dependencias requiere cargar vendor y/o node_modules de nuevo.
 ```
 
-Actualizar las dependecias puede llevar a problemas de compatibilidad, se recomienda testear antes de pasar a producción. Al ser archivos pesados requieren más ancho de banda para cargarse y más espacio de almacenamiento.
+Actualizar las dependencias puede llevar a problemas de compatibilidad, se recomienda testear antes de pasar a producción. Al ser archivos pesados requieren más ancho de banda para cargarse y más espacio de almacenamiento.
 
-_En caso de actualizar, incluya vendor y/o node_modules en el comprimido._
+_En caso de actualizar dependencias, incluya vendor y/o node_modules en el comprimido._
 
 
 ## Cargando los archivos 🗃️
@@ -137,15 +135,15 @@ Felicidades tu aplicación ya está cargada! 🏆️🎉️
 
 ## Modo mantenimiento 🔧️
 
-_Esta modo puede ser activado cuando el proyecto está cargado y descomprimido, revisaremos como actuar si es la primera vez que se carga o si es para actualzar._
+_Esta modo puede ser activado cuando el proyecto está cargado y descomprimido, revisaremos como actuar si es la primera vez que se carga o si es para actualizar._
 
-El **Modo Manenimiento inhabilita el acceso de los usuarios a nuestra web** para que podamos trabajar los cambios necesarios sin que haya conflictos. Al activarse e intentar ingresar a se verá un mensaje 503 diciendo que el serivico está en mantenimiento.
+El **Modo Mantenimiento inhabilita el acceso de los usuarios a nuestra web** para que podamos trabajar los cambios necesarios sin que haya conflictos. Al activarse e intentar ingresar se mostrará el mensaje "503" diciendo que el servicio está en mantenimiento.
 
 **[¿Cómo modificar la pantalla de mantenimiento?](https://youtu.be/tFBfPKSBG4Y)** - Vídeo adjunto - _Simply UY_
 
 ⚠️ **Importante:** Activar el modo mantenimiento **es recomendable siempre que se quiera actualizar** la web.
 
-_**Para las cargas por primera vez no es necesario** ya que por lo general no se cuenta con usuarios que puedan recibir los posibles errores que sugren durante la carga._
+_**Para las cargas por primera vez no es necesario** ya que por lo general no se cuenta con usuarios que puedan recibir los posibles errores que surgen durante la carga._
 
 _Accedemos a la terminal web e ingresamos en el directorio raíz de nuestro proyecto:_
 ```
@@ -156,11 +154,11 @@ _En este punto, probamos acceder a nuestra URL y comprobamos el mensaje 503._
 
 ## Gestionando los archivos 🗂️
 
-_Ahora es necesario realizar algúnos ajustes antes de pasar a configuración más profunda. Revisaremos la seguridad general aplicando buenas practicas._
+_Ahora es necesario realizar algunos ajustes antes de pasar a configuración más profunda. Revisaremos la seguridad general aplicando buenas practicas._
 
 ### Cambiar los permisos 🔒️
 
-_Es común que desarrollemos nuestro proyecto como administradores (en windows) o con permisos 777 o sudo en linux o Mac, si no cambimos esto en producción los **archivos pueden ser modificados por terceros**._
+_Es común que desarrollemos nuestro proyecto como administradores (en windows) o con permisos 777 o sudo en linux o Mac, si no cambiamos esto en producción los **archivos pueden ser modificados por terceros**._
 
 🛡️ _Por defecto Laravel/Symphony notifica que los archivos tienen permiso 777 estando en el servidor, lo cual permite que personas no deseadas puedan modificarlos, **para evitar esta vulnerabilidad** realizaremos lo siguiente:_
 
@@ -170,15 +168,13 @@ _Es común que desarrollemos nuestro proyecto como administradores (en windows) 
 
 ---
 
-Será necesario cambiar los permisos y asiganar nuevos:
+Será necesario cambiar los permisos y asignar nuevos:
       
-⬇️ **En Carpetas**
-Asignamos a todas las carpetas de forma recursiva los permisos con el comando:
+**En Carpetas** - Asignamos de forma recursiva los permisos con el comando:
 ```
  find /home/tu-usuario/tu-proyecto-laravel -type d -exec chmod 755 {} \;
 ```
-⬇️ **En Archivos**
-Asignamos a todos los archivos de forma recursiva los permisos con el comando:
+**En Archivos** - Asignamos de forma recursiva los permisos con el comando:
 ```
  find /home/tu-usuario/tu-proyecto-laravel -type f -exec chmod 664 {} \;
 ```
@@ -197,13 +193,13 @@ sudo chmod -R ug+rwx /home/tu-usuario/tu-proyecto-laravel/storage /home/tu-usuar
 
 ### Optimizar Laravel 🚀️
 
-_Llegado este punto nos enfocaremos en optimizar la carga y velocidad de nuestra página aplicando algunos comandos Artisan que Laravel tiene para ofecernos._
+_Llegado a este punto nos enfocaremos en optimizar la carga y velocidad de nuestra página aplicando algunos comandos artisan que Laravel tiene para ofrecernos._
 
-Es necesario limpiar el cache almacenado durante el desarrollo y remplazarlo por nuevo estando ya en el servidor, esto agiliza los tiempo de carga y procesamiento, además de evitar errores.
+Es necesario limpiar el cache almacenado durante el desarrollo y reemplazarlo por nuevo estando ya en el servidor, esto agiliza los tiempos de carga y procesamiento, además de evitar errores.
 
 #### Comandos ⌨️
 
-⚠️ _**Requiere el uso de la terminal web!**_ Aplicaremos estos comandos artisan en la terminal web estando situados en la raíz de nuestro proyecto, por ejemplo ``` /home/tu-usuario/tu-proyecto-laravel/ ```, solo estando aquí podremos utilizar los comandos Artisan.
+⚠️ _**Requiere el uso de la terminal web!**_ Aplicaremos estos comandos en la terminal web estando situados en la raíz de nuestro proyecto. Por ejemplo en ``` /home/tu-usuario/tu-proyecto-laravel/ ```.
 
 🧐️ _Si no podemos utilizar los comandos quiere decir que estamos parados en la ruta incorrecta!_
 
@@ -251,16 +247,16 @@ php artisan route:cache && php artisan config:cache && php artisan view:cache
 
 En este punto **se habrá generado nuevo cache con las directivas del servidor.**
 
-#### ¿Porque realizar esto? 🤔️
+#### ¿Por qué realizar esto? 🤔️
 
-Al desarrollar de manera local, las configuraciones y datos de almacenan con rutas similares a  ``` /var/www/html/tu-proyecto-laravel/ ```, si no eliminamos el cache, el servidor buscará trabajar con esa ruta y esto generará conflicos.
+Al desarrollar de manera local, las configuraciones y datos se almacenan con rutas similares a  ``` /var/www/html/tu-proyecto-laravel/ ```, si no eliminamos el cache, el servidor buscará trabajar con esa ruta y esto generará errores.
 
-✅️ **Los comandos anteriores deben ser ejecutados SI O SI.**
+**Los comandos anteriores deben ser ejecutados SI O SI** ✔️
 
 
 #### Re-ubicando public 📌️
 
-Como buena practica separaremos el proyecto en dos secciones, la carpeta "public" y el resto. Hacemos esto ya que **no es necesario tener todo el contenido del programa en la carpeta public_html** de nuestro hosting, con solo algunos archivos allí laravel hará funcionar la aplicación.
+Como buena practica separaremos el proyecto en dos secciones, la carpeta "public" y el resto. Hacemos esto ya que **no es necesario tener todo el contenido del programa en la carpeta public_html** de nuestro hosting, con solo algunos archivos allí Laravel hará funcionar la aplicación.
 
 Moveremos el contenido la carpeta "public" ``` /home/tu-usuario/tu-proyecto-laravel/public ``` hacia ``` /home/public_html ```, esta ruta es donde accede el usuario cuando visita la página. La carpeta public_html será similar a esta:
 
@@ -274,11 +270,11 @@ _Las carpetas y archivos varían según cada proyecto pero la estructura es simi
 
 *En caso de querer actualizar un public_html ya existente no es necesario eliminar todo.*
 
-Debemos identificar las carpetas que han sido modificadas, un caso habitual **si trabajamos con Frameworks JS** es que el archivo **app.js** ubicado en ``` /js/app.js ``` se modificado al guardar los cambios en nuestros archivos .js, .vue, etc.
+Debemos identificar las carpetas que han sido modificadas, un caso habitual **si trabajamos con Frameworks JS** es que el archivo **app.js** ubicado en ``` /js/app.js ``` es modificado al guardar los cambios en nuestros archivos .js, .vue, etc.
 
 También es común que se modifique **app.css** ubicado en ``` /jscss/app.css ```.
 
-*Para trabajar correctamente public_html debemos remplazar solo los archivos que se hayan modificado durante el desarrollo, los podemos cargar individualmente o en comprimido y remplazar los viejos por los nuevos.*
+*Para trabajar correctamente public_html debemos **reemplazar solo los archivos que se hayan modificado** durante el desarrollo, los podemos cargar individualmente o en comprimido.*
 
 #### Modificando index.php ⚙️
 
@@ -298,13 +294,13 @@ Si lo analizamos, las inclusiones buscan los archivos vendor y bootstrap que se 
 
 _Para logar acceder a estos archivos debemos modificar los "require"_.
 
-Como public ahora está en public_html y vendor/bootsrap en la carpeta ``` /home/tu-usuario/tu-proyecto-laravel ``` debemos indicar la busqueda de los archivos en una ruta anterior, para ello **cambiamos los require**:
+Como public ahora está en public_html y vendor/bootsrap en la carpeta ``` /home/tu-usuario/tu-proyecto-laravel ``` debemos indicar la búsqueda de los archivos en una ruta anterior, para ello **cambiamos los require**:
 
 _La nueva primera inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/vendor/autoload.php ```
 
 _La nueva segunda inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/bootstrap/app.php ```
 
-⚠️ _Importante: Recuerda evitar modificar el archivo index.php cuando cargues nuevas versiones, de ser así actualizalo de inmediato._
+⚠️ _Importante: Recuerda evitar modificar el archivo index.php cuando cargues nuevas versiones. De ser así, cambialo de inmediato._
 
 **De esta forma, nuestro proyecto ya puede cargar todo lo necesario!** 🏆️
 
@@ -314,7 +310,7 @@ _La nueva segunda inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/bootstrap/app
 
 _Es aquí donde te recomiendo repasar lo anterior y asegurarte que todo esté en orden_ 🤓️
 
-_Aprovecho a comentar que puedes **encontrarme en Youtube**, soy [Simply UY](https://www.youtube.com/channel/UChhbijYNjlgiVuqPEIMXuzQ) y subo vídeos sobre programación en laravel y Vue.js entre tantas cosas más._
+_Aprovecho a comentar que puedes **encontrarme en Youtube**, soy [Simply UY](https://www.youtube.com/channel/UChhbijYNjlgiVuqPEIMXuzQ) y subo vídeos sobre programación en Laravel y Vue.js entre tantas cosas más._
 
 #### 🛸️ Continuamos...
 
