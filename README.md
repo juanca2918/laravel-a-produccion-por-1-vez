@@ -52,7 +52,7 @@ Se debe activar si trabajas con **Frameworks JS y/o CSS** tales como:
 
 _Para optimizar paquetes en laravel_
 ```
-composer install --optimize-autoloader -no-dev
+composer install --optimize-autoloader --no-dev
 ```
 Este comando de Composer permite optimizar toda la carga de clases y paquetes dentro de tu aplicación.
 
