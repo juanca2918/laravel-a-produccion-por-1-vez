@@ -9,54 +9,56 @@ _Con esta guía aprenderás a hacer **Deploy** de Tu Proyecto Laravel en un **ho
 
 - De igual manera es posible realizar **procedimientos similares en otros administradores**, ante la duda puedes consultarlo con tu proveedor generando un nuevo Ticket.
 
-> Si detectas algún error, comentalo en la sección "issues" del [proyecto en git](https://github.com/Guilledll/laravel-a-produccion-por-1-vez).
+- Esta guía aplica **SOLO a proyectos listos** para producción.
+
+**Ninguna de las optimizaciones realizadas aquí debe ser aplicada durante la etapa de desarrollo.**
+
+> Si detectas algún error, comenta en la sección "issues" del [proyecto en git](https://github.com/Guilledll/laravel-a-produccion-por-1-vez/issues).
 
 ### Índice de contenido
-* **[Requisitos previos](#Requisitos_previos)**
+* **[Requisitos previos 📋️](#Requisitos_previos)**
 	* [Dependencias](#Dependencias)
 	* [Terminal](#Terminal)
 	* [No tengo terminal ¿qué hago?](#No_tengo_terminal)
-	* [Proyectos 100% listos](#Proyectos_100%_listos)
-* **[Comenzando](#Comenzando)**
-* **[Comprimiendo](#Comprimiendo)**
+* **[Comenzando 🚀️](#Comenzando)**
+* **[Comprimiendo 📦️](#Comprimiendo)**
 	* [No necesitamos](#No_necesitamos)
 	* [Necesitamos](#Necesitamos)
-* **[Cargando los archivos](#Cargando_los_archivos)**
-* **[Gestionando los archivos](#Gestionando_los_archivos)**
+* **[Cargando los archivos 🗃️](#Cargando_los_archivos)**
+* **[Gestionando los archivos 🗂️](#Gestionando_los_archivos)**
 	* [Cambiar los permisos](#Cambiar_los_permisos)
 	* [Re-ubicando public](#Re_ubicando_public)
 	* [Modificando index.php](#Modificando_index.php)
-		* [¿Qué debemos cambiar?](#Que_debemos_cambiar)
-* **[Conexion a base de datos](#Conexion_a_base_de_datos)**
+* **[Conexion a base de datos 💾️](#Conexion_a_base_de_datos)**
 	* [Configurando desde 0](#Configurando_desde_0)
 	* [Permisos de usuario](#Permisos_de_usuario)
-* **[Ajustando variables de entorno](#Ajustando_variables_de_entorno)**
+* **[Ajustando variables de entorno 🔧️](#Ajustando_variables_de_entorno)**
 	* [Variables APP_](#Variables_APP_)
 	* [Variables DB_](#Variables_DB_)
 	* [Variables MAIL_](#Variables_MAIL_)
 	* [Otras variables](#Otras_variables)
-* **[Cargando la base](#Cargando_la_base)**
+* **[Cargando la base 🔋️](#Cargando_la_base)**
 	* [Cargar por terminal web](#Cargar_por_terminal_web)
 	* [Cargar de forma manual](#Cargar_de_forma_manual)
 	* [phpMyAdmin](#phpMyAdmin)
-* **[Optimizar Laravel](#Optimizar_laravel)**
+* **[Optimizar Laravel 🚀️](#Optimizar_laravel)**
 	* [Comandos](#Comandos)
 	* [Generar nuevo cache en el servidor](#Generar_nuevo_cache_en_el_servidor)
-	* [¿Por qué gestionar el cache?](#Por_qué_gestionar_el_cache)
-* **[Puesta en marcha](#Puesta_en_marcha)**
-* **[Gestión de registros](#Gestión_de_registros)**
-* **[Solución de problemas](#Solución_de_problemas)**
+	* [Por qué gestionar el cache](#Por_qué_gestionar_el_cache)
+* **[Puesta en marcha 🛰️](#Puesta_en_marcha)**
+* **[Gestión de registros 📑️](#Gestión_de_registros)**
+* **[Solución de problemas 🛠️](#Solución_de_problemas)**
 	* [Modo mantenimiento](#Modo_mantenimiento)
 	* [Activando modo debug](#Activando_modo_debug)
-* **[Problemas generales](#Problemas_generales)**
+* **[Problemas generales 📜️](#Problemas_generales)**
 	* [Permisos de archivos](#Permisos_de_archivos)
 	* [Base de datos](#Base_de_datos)
 	* [Configuración antigua](#Configuración_antigua)
 	* [Versión php](#Versión_php)
 	* [Correos](#Correos)
 	* [Otros errores](#Otros_errores)
-* **[Verificando los cambios](#Verificando_los_cambios)**
-* **[Activar la web](#Activar_la_web)**
+* **[Verificando los cambios 🏷️](#Verificando_los_cambios)**
+* **[Activar la web 💡️](#Activar_la_web)**
 * **[Extras](#Extras)**
 	* [Sugerencias](#Sugerencias)
 	* [Autor](#Autor)
@@ -76,7 +78,7 @@ Se asume desde ya que tu proyecto se encuentra listo para ser cargado, también 
 
 Para completar al **100%** esta guía `es necesario tener acceso a la Terminal Web en tu hosting`, en ella podrás gestionar algunos de los **comandos artisan** que veremos más adelante.
 
-> En cPanel puedes acceder en Avanzado -> Terminal.
+> En cPanel puedes acceder en `Avanzado` -> `Terminal`.
 
 <a id="No_tengo_terminal"></a>
 #### No tengo la terminal, pero la quiero usar ¿Qué hago?
@@ -87,17 +89,10 @@ Una vez habilitada se verá similar a esto:
 
 ![Terminal](https://mishorasweb.com/images/guia-prod/terminal.png)
 
-<a id="Proyectos_100%_listos"></a>
-### Proyectos 100% listos 🏆️
-
-❗️ **Importante:** Esta guía aplica SOLO a proyectos listos para producción.
-
-**Ninguna de las optimizaciones realizadas aquí debe ser aplicada durante la etapa de desarrollo.**
-
 <a id="Comenzando"></a>
 ## Comenzando 🚀️
 
-_Una vez terminado el desarrollo, nos paramos en la raíz de nuestro proyecto e ingresamos los siguientes comandos en una **terminal local**:_
+_Una vez terminado el desarrollo, nos vamos a la raíz de nuestro proyecto e ingresamos los siguientes comandos en una **terminal local**:_
 
 _Para optimizar JS y CSS_
 ```
@@ -124,7 +119,7 @@ php artisan route:clear && php artisan config:clear && php artisan cache:clear
 <a id="Comprimiendo"></a>
 ## Comprimiendo el proyecto 📦️
 
-_Procedemos a crear el comprimido que contendrá todas los archivos necesarios del programa, también veremos los que no necesitamos._
+_Procedemos a crear el comprimido que contendrá todas los archivos necesarios del programa, veremos que hace falta y que no._
 
 <a id="No_necesitamos"></a>
 #### No necesitamos ✖️
@@ -173,116 +168,87 @@ Felicidades tu aplicación ya está cargada! 🏆️🎉️
 <a id="Gestionando_los_archivos"></a>
 ## Gestionando los archivos 🗂️
 
-_Ahora es necesario realizar algunos ajustes antes de pasar a configuraciónes más profundas. Revisaremos la seguridad general._
+_Ahora es necesario realizar algunos ajustes antes de pasar a configuraciones más profundas. Revisaremos la seguridad general._
 
 <a id="Cambiar_los_permisos"></a>
 ### Cambiar los permisos 🔒️
 
-_Es común que desarrollemos nuestro proyecto como administradores (en windows) o con `permisos 777` o sudo en linux o Mac, si no cambiamos esto en producción los **archivos pueden ser modificados por terceros**._
+_Es común que desarrollemos el proyecto como `administradores`, con `permiso 777` o `sudo` en linux, si no cambiamos esto en producción los **archivos pueden ser modificados por terceros**._
 
-🛡️ Por defecto `Laravel/Symphony` notifica que los archivos tienen permiso 777, lo cual nos avisa que personas no deseadas puedan modificarlos, **veamos como evitar esta vulnerabilidad**:
+🛡️ Por defecto `Laravel/Symphony` notifica que los archivos tienen `permiso 777` y por ende personas no deseadas pueden modificarlos, **veamos como evitar esta vulnerabilidad**:
 
-[Guía de gestión y cambio de permisos](https://qastack.mx/programming/30639174/how-to-set-up-file-permissions-for-laravel)
+Para no extender de más la guía incluiré en esta sección a un **tutorial** que te enseña **[Como Gestionar y Cambiar los Permisos en tu Proyecto Laravel 🌐️](https://qastack.mx/programming/30639174/how-to-set-up-file-permissions-for-laravel)**.
 
----
+> Todos los créditos a sus respectivos creadores
 
-❗️ **Terminal requerida!** Los siguientes comandos se pueden ejecutar en la `Terminal Web` para más comodidad, de lo contrario se deben aplicar de manera local **antes de generar el comprimido**.❗️
-
----
-
-Será necesario cambiar los permisos y asignar nuevos:
-      
-**En Carpetas** - Asignamos de forma recursiva los permisos con el comando:
-```
- find /home/tu-usuario/tu-proyecto-laravel -type d -exec chmod 755 {} \;
-```
-**En Archivos** - Asignamos de forma recursiva los permisos con el comando:
-```
- find /home/tu-usuario/tu-proyecto-laravel -type f -exec chmod 664 {} \;
-```
-_Con estos comandos todos los archivos son solamente de lectura._
-
----
-
-De todas formas **Laravel necesita leer/escribir** en la carpeta ``` /storage ``` por lo que también le asignaremos los siguientes permisos:
-
-```
-sudo chmod -R ug+rwx /home/tu-usuario/tu-proyecto-laravel/storage /home/tu-usuario/tu-proyecto-laravel/bootstrap/cache
-```
-
-🛡️ Ejecutados estos comandos la aplicación se encuentra **segura frente a escrituras y ejecuciones maliciosas.**
+Una vez **[completado el tutorial](https://qastack.mx/programming/30639174/how-to-set-up-file-permissions-for-laravel)** nuestra aplicación se encuentra **segura frente a escrituras y ejecuciones maliciosas.**
 
 <a id="Re_ubicando_public"></a>
 ### Re-ubicando public 📌️
 
 Como buena practica separaremos el proyecto en dos secciones, la carpeta "public" y el resto. Hacemos esto ya que **no es necesario tener todo el contenido del programa en la carpeta public_html** de nuestro hosting, con solo algunos archivos allí Laravel hará funcionar la aplicación.
 
-Moveremos el contenido la carpeta "public" ``` /home/tu-usuario/tu-proyecto-laravel/public ``` hacia ``` /home/public_html ```, esta ruta es donde accede el usuario cuando visita la página. La carpeta public_html será similar a esta:
+Moveremos el contenido la carpeta "public" ``` /home/tu-usuario/tu-proyecto-laravel/public ``` hacia ``` /home/public_html ```, esta ruta es donde accede el usuario cuando visita la página. La carpeta `public_html` será similar a esta:
 
  ![public_html](https://mishorasweb.com/images/guia-prod/public.png)
 
 _Las carpetas y archivos varían según cada proyecto pero la estructura es similar._
 
-```
-📃️ Nota: Queda a criterio de cada uno si eliminar o no la carpeta public (que ahora está vacía porque le sacamos el contenido).
-```
+
+> Queda a criterio de cada uno si eliminar o no la carpeta `/tu-proyecto-laravel/public`.
+
 
 <a id="Modificando_index.php"></a>
 ### Modificando index.php ⚙️
 
-_Este archivo se encarga de hacer funcionar nuestra aplicación, si lo examinamos vemos que invoca archivos de dos carpetas, entre otras varias cosas. Las archivos son ``` /vendor/autoload.php ``` y ``` /bootstrap/app.php ```._
+_Este archivo se encarga de hacer funcionar nuestra aplicación, si lo examinamos vemos que invoca archivos de dos carpetas, entre otras varias cosas. Las archivos son ` /vendor/autoload.php ` y ` /bootstrap/app.php `._
 
-La primera inclusión es: ```__DIR__.'/../vendor/autoload.php ```
+La primera inclusión es: `__DIR__.'/../vendor/autoload.php `
 
 ![vendor](https://mishorasweb.com/images/guia-prod/vendor.png)
  
-La segunda inclusión es: ```__DIR__.'/../bootstrap/app.php ```
+La segunda inclusión es: `__DIR__.'/../bootstrap/app.php `
 
 ![bootstrap](https://mishorasweb.com/images/guia-prod/bootstrap.png)
 
-<a id="Que_debemos_cambiar"></a>
-#### ¿Qué debemos cambiar?
-
-Si lo analizamos, las inclusiones buscan los archivos vendor y bootstrap que se encuentren en esa ruta, pero estos no existen allí porque **los separamos de public en el paso anterior!**.
+Si lo analizamos, las inclusiones buscan las carpetas `/vendor` y `/bootstrap` que se encuentren en esa ruta, pero estos no existen allí porque **los separamos de public en el paso anterior!**.
 
 _Para logar acceder a estos archivos debemos modificar los "require"_.
 
 Como el contenido de public ahora está en public_html y vendor/bootstrap en la carpeta ``` /home/tu-usuario/tu-proyecto-laravel ``` debemos indicar la búsqueda de los archivos en una ruta anterior, para ello **cambiamos los "require"**:
 
-_La nueva primera inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/vendor/autoload.php ```
+La nueva primera inclusión: `__DIR__.'/../tu-proyecto-laravel/vendor/autoload.php `
 
-_La nueva segunda inclusión:_ ```__DIR__.'/../tu-proyecto-laravel/bootstrap/app.php ```
+La nueva segunda inclusión: `__DIR__.'/../tu-proyecto-laravel/bootstrap/app.php `
 
-```
-❗️ Importante: Evitar modificar el archivo index.php al cargar nuevas versiones. De ser así, actualizar de inmediato.
-```
+❗️ **Importante:** Evite modificar el archivo index.php al cargar nuevas versiones. De ser así, actualice las inclusiones de inmediato❗️
 
 **De esta forma, nuestro proyecto ya puede cargar todo lo necesario!** 🏆️
 
 <a id="Conexion_a_base_de_datos"></a>
-## Conexión a Base de Datos 🗃️
+## Conexión a Base de Datos 💾️
 
 _Realizaremos la conexión completa con la base de datos de producción._
 
 ❗️ Los siguientes ejemplos se basan en cPanel, los procesos no suelen variar mucho entre los distintos proveedores.
 
-Recuerda copiar los datos que generaremos ahora: ``` usuario, contraseña y base de datos. ```
+Recuerda copiar los datos que generaremos ahora: `usuario`, `contraseña` y `base de datos.`
 
 <a id="Configurando_desde_0"></a>
 ### Configurando desde 0
 
 _Crearemos todo mediante la interfaz web._
 
-Databases -> MySQL Databases
-_Aquí podremos crear una nueva base para nuestro proyecto._
+`Databases` -> `MySQL Databases`
+_Aquí podremos crear una **nueva base** para nuestro proyecto._
 
 ![db-crear](https://mishorasweb.com/images/guia-prod/db-crear.png)
 
-_Creamos el usuario que utilizará la base de datos._
+_**Creamos el usuario** que utilizará la base de datos._
 
 ![db-crear](https://mishorasweb.com/images/guia-prod/db-user.png)
 
-_Agregamos el usuario a la base de datos para que la pueda manipular._
+_**Agregamos el usuario** a la base de datos para que la pueda manipular._
 
 ![db-crear](https://mishorasweb.com/images/guia-prod/db-add-user.png)
 
@@ -293,99 +259,98 @@ _Si tenemos acceso a un gestor de BD podemos comprobar que la base se haya confi
 
 _Evitemos errores y revisemos que los permisos del usuario sean correctos para esa base._
 
-Esto permite que el usuario pueda ejecutar las sentencias ```SELECT, INSERT, UPDATE, DELETE, etc.``` de SQL.
+Esto permite que el usuario pueda ejecutar las sentencias `SELECT`, `INSERT`, `UPDATE`, `DELETE`, etc. de `SQL`.
 
 <a id="Ajustando_variables_de_entorno"></a>
 ## Ajustando variables de entorno 🔧️
 
 _Ahora trabajaremos con el archivo .env de tu proyecto._
 
-Nos aseguramos que **.env** se haya respaldado en el comprimido, de no ser así, creamos un nuevo .env en la raíz de nuestro proyecto y copiamos dentro todos los datos del archivo local.
+Nos aseguramos que **.env** se haya respaldado en el comprimido, de no ser así, creamos un nuevo .env en la raíz de nuestro proyecto `/tu-proyecto-laravel/.env` y copiamos dentro todos los datos del archivo local.
 
 _Cambio de variables: Revisaremos 3 secciones de nuestro .env_
 
-```
-Los datos pueden variar según cada proyecto.
-```
+> Los datos pueden variar según cada proyecto.
+
 <a id="Variables_APP_"></a>
 #### Variables APP_
 
 ![env_data](https://mishorasweb.com/images/guia-prod/env-data.png)
 
-* ENV = ```local``` por ```production```
+* ENV = `local` por `production`
 
 _Con esto Laravel sabe que el entorno ahora es de Producción._
 
-* KEY = ```base64:xxx...``` por ```key:generate```
+* KEY = `base64:xxx...` por `key:generate`
 
 _Key es un atributo de seguridad, para actualizarlo en producción crearemos una nueva clave en la terminal local._
 
-Ingresamos comando: ```php artisan key:generate```
+Ingresamos comando: `php artisan key:generate`
 
 Nos creará una nueva key en **.env local** la cual copiamos y **pegamos en el .env de producción**.
 
-* DEBUG = ```true``` por ```false```
+* DEBUG = `true` por `false`
 
-_Debug define si mostrar errores estando en Producción, es Importante establecerlo FALSE para que el usario no vea información sensible en caso de error._
+_Debug define si mostrar errores estando en Producción, es importante establecerlo FALSE para que el usuario no vea información sensible en caso de error._
 
-* URL = ```http://localhost``` por ```https://mi-dominio.com```
+* URL = `http://localhost` por `https://mi-dominio.com`
 
 _Cambiamos la URL local por nuestro dominio._
 
 <a id="Variables_DB_"></a>
 #### Variables DB_
 
-❗️ Es aquí cuando utilizamos los datos ```usuario, contraseña y base de datos``` que habíamos guardado antes.
+❗️ Es aquí cuando utilizamos los datos `usuario`, `contraseña` y `base de datos` que habíamos guardado antes.
 
 ![env_db](https://mishorasweb.com/images/guia-prod/env-bd.png)
 
-* DATABASE = ```tu-base-local``` por ```tu-base-web```
+* DATABASE = `tu-base-local` por `tu-base-web`
 
 _La base local será remplazada por la base web._
 
-* USERNAME = ``` user-local ``` por ``` user-web ```
+* USERNAME = `user-local` por `user-web`
 
 _Ingresamos el usuario con acceso a la DB de nuestro hosting._
 
-* PASSWORD = ``` pass-local ``` por ``` pass-web ```
+* PASSWORD = `pass-local` por `pass-web`
 
 _Cambiamos por la contraseña de ese usuario._
 
 <a id="Variables_MAIL_"></a>
 #### Variables MAIL_
 
-❗️ Esta configuración **NO es necesaria** si NO pensamos utilizar los servicios de **correo de nuestro dominio o de terceros**.
+❗️ Esta configuración no es necesaria si **no pensamos utilizar los servicios de correo** de nuestro dominio o de terceros.
 
 En este ejemplo se ve el uso de [Mailtrap](https://mailtrap.io/) para la prueba de correos durante desarrollo, vamos a cambiar esto.
 
 ![env_mail](https://mishorasweb.com/images/guia-prod/env-mail.png)
 
-_Necesitamos contactar con nuestro proveedor para obtener algunos datos:_ ``` MAILER, PORT nos lo brinda nuestro proveedor ```.
+_Necesitamos contactar con nuestro proveedor para obtener algunos datos:_ `MAILER`,  `PORT` nos lo brinda nuestro proveedor.
 
-* HOST = ```smtp.mailtrap.io``` por ```tu-dominio.com```
+* HOST = `smtp.mailtrap.io` por `tu-dominio.com`
 
 _Cambiamos el host de prueba (si existe) por nuestro dominio web._
 
 📨️ Para estos datos debemos de tener un correo existente bajo nuestro dominio.
 
-* USERNAME = ```test-user``` por ```real-mail-user```
+* USERNAME = `test-user` por `real-mail-user`
 
 _Ingresamos el correo completo **example@tu-dominio**._
 
-* PASSWORD = ```test-pass``` por ```real-mail-pass```
+* PASSWORD = `test-pass` por `real-mail-pass`
 
 _La contraseña de ese correo._
 
-* FROM_ADDRESS = ```quien-envia@tu-dominio.com```
+* FROM_ADDRESS = `quien-envia@tu-dominio.com`
 
 <a id="Otras_variables"></a>
 #### Otras variables
 
-_Recuerden además cambiar las variables que cada uno haya modificado en su proyecto._
+_Recuerda además cambiar **todas las variables** que hayas modificado en tu proyecto._
 
 ---
 
-Ya realizadas las modificaciones ingresamos en la **Terminal Web** el comando: ``` php artisan config:cache ``` para almacenar las nuevas configuraciones.
+Ya realizadas las modificaciones ingresamos en la **Terminal Web** el comando: `php artisan config:cache` para almacenar las nuevas configuraciones.
 
 **En caso de no tener Acceso a la Terminal Web**, procederemos a borrar el cache de nuestro navegador para que se descargue el nuevo archivo de configuración al recargar.
 
@@ -401,22 +366,22 @@ _Veremos dos formas de cargar la base de datos en nuestro servidor, utilizando l
 
 ❗️ **Si tienes la Terminal Web habilitada.**
 
-Ingresamos a la terminal y nos situamos en el directorio raíz de nuestro proyecto con este comando: ``` cd /home/usuario/ruta/a/tu/proyecto ```.
+Ingresamos a la terminal y nos situamos en el directorio raíz de nuestro proyecto con este comando: `cd /home/usuario/ruta/a/tu/proyecto`.
 
 Estando allí ingresamos el comando:
 ```
 php artisan migrate
 ```
 
-_Con este comando quedará generada nuestra base de datos sin ningún registro, completamente limpia y lista para usar!_
+_Con este comando **quedará generada nuestra base de datos** sin ningún registro, completamente limpia y lista para usar!_
 
 <a id="Cargar_de_forma_manual"></a>
 #### Cargar de forma manual 🤲️
 
 Para los que no tienen acceso a la Terminal Web, ingresaremos un comando que nos permite generar una nueva BD limpia y lista para cargar:
 
-1º Respaldar la BD de desarrollo Local (Si es necesario)
-2º En la raíz de nuestro proyecto Local ingresamos
+1. Respaldar la BD de desarrollo Local (Si es necesario)
+2. En la raíz de nuestro proyecto Local ingresamos
 
 ```
 php artisan migrate:fresh
@@ -429,7 +394,7 @@ Este comando limpiará nuestra BD Local. Una vez terminadas las migraciones acce
 
 Estando en la interfaz iremos a nuestra BD limpia y en la barra superior seleccionaremos **"exportar"**, se generará un **.sql** que contiene la BD sin registros.
 
-Con este archivo nos iremos a nuestro gestor **phpMyAdmin Web o al gestor de BD que nuestro hosting tenga** e importamos nuestro .sql en la base de datos que creamos antes.
+Con este archivo nos iremos a nuestro gestor **phpMyAdmin Web o al gestor de BD que nos ofrezca nuestro hosting** e importamos nuestro .sql en la base de datos que creamos antes.
 
 Finalizada la importación comprobaremos que nuestra nueva base de datos se haya cargado correctamente.
 
@@ -438,7 +403,7 @@ Finalizada la importación comprobaremos que nuestra nueva base de datos se haya
 <a id="Optimizar_laravel"></a>
 ## Optimizar Laravel 🚀️
 
-_Ahora nos enfocaremos en optimizar la carga y velocidad de nuestra página aplicando algunos comandos artisan que Laravel tiene para ofrecernos._
+_Ahora nos enfocaremos en optimizar la carga y velocidad de nuestra página aplicando algunos comandos `artisan` que Laravel tiene para ofrecernos._
 
 Esta sección tiene 2 procesos:
 * Limpiar el cache generado durante el desarrollo
@@ -456,7 +421,7 @@ esto agiliza los tiempos de carga y procesamiento.
 
 ❗️ **Requiere el uso de la terminal web!** Aplicaremos estos comandos **SOLO** si tenemos la terminal web.
 
-Nos situamos en la raíz de nuestro proyecto. Por ejemplo en ``` /home/tu-usuario/tu-proyecto-laravel/ ```.
+Nos situamos en la raíz de nuestro proyecto. Por ejemplo en `/home/tu-usuario/tu-proyecto-laravel/`.
 
 🧐️ _Si no podemos utilizar los comandos quiere decir que estamos parados en la ruta incorrecta!_
 
@@ -510,16 +475,15 @@ En este punto **se habrá generado nuevo cache con las directivas del servidor.*
 <a id="Por_qué_gestionar_el_cache"></a>
 ### ¿Por qué gestionar el cache? 🤔️
 
-Al desarrollar de manera local las configuraciones y datos se almacenan con rutas similares a  ``` /var/www/html/tu-proyecto-laravel/ ```, si no eliminamos el cache, el servidor buscará trabajar con esas rutas y esto generará errores.
+Al desarrollar de manera local las configuraciones y datos se almacenan con rutas similares a  `/var/www/html/tu-proyecto-laravel/`, si no eliminamos el cache, el servidor buscará trabajar con esas rutas y esto generará errores.
 
 _Limpiar cache_
 ```
 La limpieza de cache debe ser ejecutada SI o SI ✔️
 ```
 _Generar nuevo cache_
-```
-❗️ SOLO debemos generar nuevo cache si tenemos acceso a La Terminal Web 
-```
+
+❗️ SOLO debemos generar nuevo cache si tenemos acceso a La Terminal Web ❗️
 
 <a id="Puesta_en_marcha"></a>
 ## Puesta en marcha 🛰️
@@ -537,7 +501,7 @@ Es normal que ocurran errores cuando ingreses a tu web:
 * La API no responde
 * Y un largo etc.
 
-Para esto nos encargaremos de revisar los posibles errores y como solucionarlos.
+Para esto nos encargaremos de revisar algunos posibles errores y como solucionarlos.
 
 ❗️ **Recomendación:** Tener acceso a configuración para **borrar cache en tu navegador**, es posible que lo necesitemos hacerlo varias veces.
 
@@ -554,7 +518,7 @@ El Framework nos provee un sistema de registros que indica errores dentro del si
 
 Nuestro hosting nos provee registros de errores que suceden más allá de lo que Laravel puede registrar, con esto nos referimos a errores de servidor, configuración general, entre varios otros.
 
-En cPanel los podemos encontrar en  Metrics -> Errors
+En cPanel los podemos encontrar en  `Metrics` -> `Errors`
 
 <a id="Solución_de_problemas"></a>
 ## Solución de problemas 🛠️
@@ -566,13 +530,17 @@ _Esta sección es la más amplia y compleja de la guía. Aquí se deja a libre c
 <a id="Modo_mantenimiento"></a>
 ### Modo mantenimiento ⚙️
 
-_Es ideal para que nadie pueda acceder a tu web mientras tu haces la pruebas necesarias. Veremos como configurar para que puedas acceder solo tu._
+_Es ideal para que nadie pueda acceder a tu web mientras tu haces las pruebas necesarias. Veremos como configurar para que puedas acceder solo tu._
 
 El **Modo Mantenimiento inhabilita el acceso a la web** para que podamos trabajar los cambios necesarios sin que haya conflictos. Al intentar ingresar se mostrará el mensaje "503 servicio en mantenimiento".
 
+> Te invito a ver luego:
+
+**[Cambiar pantalla de mantenimiento "503"](https://youtu.be/tFBfPKSBG4Y)** - Ver vídeo - _Simply UY_
+
 ❗️ **Requiere uso de terminal web** ❗️
 
-La indicación **--secret** permite dar acceso a tu web solo a los usuario que tienen el token de seguridad, vamos a ver un ejemplo de como funciona esto.
+La indicación **--secret** permite dar acceso a tu web solo a los usuario que tienen el **token de seguridad**, vamos a ver un ejemplo de como funciona esto.
 
 _Accedemos a la **terminal web** e ingresamos en el directorio raíz de nuestro proyecto:_
 ```
@@ -590,8 +558,6 @@ http://tu-dominio.com/tu-token-secreto
 ```
 Enseguida estaremos dentro de nuestra web. Ahora podremos cambiar la configuración para mostrar errores.
 
-**[¿Cómo modificar pantalla de mantenimiento?](https://youtu.be/tFBfPKSBG4Y)** - Ver vídeo - _Simply UY_
-
 <a id="Activando_modo_debug"></a>
 ### Activando modo debug 🐞️
 
@@ -601,10 +567,12 @@ En nuestro .env cambiamos:
 
 * APP_DEBUG = ```false``` por ```true```
 
-Ahora seremos capaces de ver los errores que Laravel/Symphony tienen para mostrar.
+**¿Todavía no aparecen los errores?** Intenta borrando el cache para que se cargue la nueva configuración o aplica `php artisan config:cache`.
+
+Ahora seremos capaces de ver los errores que `Laravel/Symphony` tienen para mostrar.
 
 <a id="Problemas_generales"></a>
-### Problemas generales 📜️
+## Problemas generales 📜️
 
 _Es imposible que esta guía resuelva todos los problemas que pueden surgir durante el deploy, de todas formas, haremos referencia a los más recurrentes y como solucionarlos._
 
@@ -638,16 +606,16 @@ La configuración de correos es compleja y sensible, tu proveedor de servicio pu
 <a id="Otros_errores"></a>
 #### Otros errores
 
-_De encontrar **errores relacionados al desarrollo e instrucciones de esta guía**, por favor **reportarlo como problema (issue)**._
+_De encontrar **errores relacionados al desarrollo e instrucciones de esta guía**, por favor **[reportarlo como problema (issue)](https://github.com/Guilledll/laravel-a-produccion-por-1-vez/issues)**._
 
 <a id="Verificando_los_cambios"></a>
 ## Verificando los cambios 🏷️
 
 _Una vez realizados los cambios debemos comprobarlos, pero como mencionamos antes, el cache del navegador ya está guardado, debemos borrarlo._
 
-Con **cada cambio que realizamos en nuestro .env**, debemos borrar el cache generado por nuestra web en el navegador.
+Con **cada cambio que realizamos en nuestro .env**, debemos borrar el cache generado por nuestra web en el navegador y/o ejecutar `php artisan config:cache`.
 
-De esta manera tendremos las nuevas configuraciones y no las viejas.
+> De esta manera almacenamos las nuevas configuraciones.
 
 <a id="Activar_la_web"></a>
 ## Activar la web 💡️
